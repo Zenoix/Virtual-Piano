@@ -1,8 +1,8 @@
 body {
     background-color: #ffccd5;
     margin: 0;
-    font-family: 'Oswald', sans-serif;
     font-size: 20px;
+    font-family: 'Lato', sans-serif;
     -webkit-touch-callout: none;
     /* iOS Safari */
     -webkit-user-select: none;
@@ -17,11 +17,18 @@ body {
 }
 
 .container {
-    height: 226px;
+    height: 280px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+h2 {
+    color: #222222;
+    text-align: center;
+    margin-top: 30px;
+    font-size: 18px;
 }
 
 .white-keys {
