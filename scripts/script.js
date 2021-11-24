@@ -1,68 +1,53 @@
-const keysList = [
+const whiteKeysList = [
   "KeyA",
   "KeyS",
   "KeyD",
   "KeyF",
   "KeyG",
   "KeyH",
-  "KeyJ",
+  "KeyJ"
+];
+
+const blackKeysList = [
   "KeyW",
   "KeyE",
   "KeyT",
   "KeyY",
   "KeyU",
-];
+]
 
 const kbdElements = document.querySelectorAll("KBD");
+const keyToElement = {
+  "KeyA": kbdElements[0],
+  "KeyS": kbdElements[1],
+  "KeyD": kbdElements[2],
+  "KeyF": kbdElements[3],
+  "KeyG": kbdElements[4],
+  "KeyH": kbdElements[5],
+  "KeyJ": kbdElements[6],
+  "KeyW": kbdElements[7],
+  "KeyE": kbdElements[8],
+  "KeyT": kbdElements[9],
+  "KeyY": kbdElements[10],
+  "KeyU": kbdElements[11]
+}
 
 function playAudio(key) {
   let audio = new Audio(`assets/${key}.mp3`);
-  audio.volume = 0.3;
+  audio.volume = whiteKeysList.includes(`Key${key}`) ? 0.3 : 0.5;
   audio.play();
 }
 
-function getKBDElement(code) {
-  switch (code) {
-    case "KeyA":
-      return kbdElements[0];
-    case "KeyS":
-      return kbdElements[1];
-    case "KeyD":
-      return kbdElements[2];
-    case "KeyF":
-      return kbdElements[3];
-    case "KeyG":
-      return kbdElements[4];
-    case "KeyH":
-      return kbdElements[5];
-    case "KeyJ":
-      return kbdElements[6];
-    case "KeyW":
-      return kbdElements[7];
-    case "KeyE":
-      return kbdElements[8];
-    case "KeyT":
-      return kbdElements[9];
-    case "KeyY":
-      return kbdElements[10];
-    case "KeyU":
-      return kbdElements[11];
-  }
-}
-
 document.addEventListener("keypress", function (e) {
-  if (keysList.includes(e.code)) {
+  if (whiteKeysList.includes(e.code) || blackKeysList.includes(e.code)) {
     playAudio(e.key.toUpperCase());
-    const el = getKBDElement(e.code);
-    console.log(el);
-    el.classList.add("pressed");
+    keyToElement[e.code].classList.add("pressed");
   }
 });
 
 document.addEventListener("keyup", function (e) {
-  if (keysList.includes(e.code)) {
-    const el = getKBDElement(e.code);
-    el.classList.remove("pressed");
+  if (whiteKeysList.includes(e.code) || blackKeysList.includes(e.code)) {
+    keyToElement[e.code].classList.remove("pressed");
   }
 });
 
