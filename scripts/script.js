@@ -32,14 +32,23 @@ const keyToElement = {
   "KeyU": kbdElements[11]
 }
 
+kbdElements.forEach(key => {
+  key.addEventListener("click", function (e) {
+    playAudio(key.innerText)
+  })
+})
+
 function playAudio(key) {
   let audio = new Audio(`assets/${key}.mp3`);
   audio.volume = whiteKeysList.includes(`Key${key}`) ? 0.3 : 0.5;
+  audio.currentTime = 0;
   audio.play();
 }
 
-document.addEventListener("keypress", function (e) {
-  if (whiteKeysList.includes(e.code) || blackKeysList.includes(e.code)) {
+document.addEventListener("keydown", function (e) {
+  if (e.repeat) {
+    return;
+  } else if(whiteKeysList.includes(e.code) || blackKeysList.includes(e.code)) {
     playAudio(e.key.toUpperCase());
     keyToElement[e.code].classList.add("pressed");
   }
@@ -48,11 +57,5 @@ document.addEventListener("keypress", function (e) {
 document.addEventListener("keyup", function (e) {
   if (whiteKeysList.includes(e.code) || blackKeysList.includes(e.code)) {
     keyToElement[e.code].classList.remove("pressed");
-  }
-});
-
-document.addEventListener("click", function (e) {
-  if (e.target.tagName === "KBD") {
-    playAudio(e.target.innerText);
   }
 });
